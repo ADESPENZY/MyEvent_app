@@ -1,0 +1,4 @@
+Requirement already satisfied: django in c:\users\dell\django-wednesday\myenv\lib\site-packages (3.2)
+Requirement already satisfied: asgiref<4,>=3.3.2 in c:\users\dell\django-wednesday\myenv\lib\site-packages (from django) (3.8.1)
+Requirement already satisfied: pytz in c:\users\dell\django-wednesday\myenv\lib\site-packages (from django) (2024.2)
+Requirement already satisfied: sqlparse>=0.2.2 in c:\users\dell\django-wednesday\myenv\lib\site-packages (from django) (0.5.1)
