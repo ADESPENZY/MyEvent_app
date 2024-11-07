@@ -1,0 +1,46 @@
+
+{% extends 'base.html' %}
+
+{% block main %}
+<section class="flex flex-col justify-center items-center mt-10 space-y-8 bg-gray-50 p-10 rounded-md shadow-lg max-w-4xl mx-auto">
+
+    <!-- Greeting Header -->
+    <h2 class="text-3xl font-semibold text-teal-700">
+        Good Morning, {{ name }}! Events for {{ month }} {{ year }}
+    </h2>
+
+    <!-- Current Date and Time -->
+    <div class="text-gray-600 text-sm">
+        <span>As of {{ time }}</span>
+       
+    </div>
+
+    <!-- Calendar -->
+    <div class="w-full bg-white flex justify-center border border-gray-300 rounded-md p-6 shadow-md">
+        <span class="block text-gray-800 text-lg font-medium">{{ cal|safe }}</span>
+    </div>
+
+    <!-- Events Section -->
+    <div class="w-full mt-8">
+        <h3 class="text-2xl font-bold text-gray-700">Events This Month</h3>
+
+        {% if event_list %}
+            <ul class="mt-4 space-y-3">
+                {% for event in event_list %}
+                    <li class="flex justify-between items-center p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
+                        <span class="text-teal-800 font-semibold">{{ event}}</span>
+                        <span class="text-gray-500">{{  event.event_date }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="mt-4 text-gray-500">Sorry, there are no events for this month.</p>
+        {% endif %}
+
+    <!-- Footer -->
+    <footer class="mt-10 text-gray-500 text-xs text-center">
+        <span>&copy; {{ current_year }} Your Company Name. All rights reserved.</span>
+    </footer>
+
+</section>
+{% endblock %}

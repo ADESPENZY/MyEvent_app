@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<section class="flex flex-col gap-10 w-[80%] mx-auto mt-10 space-y-5">
+    <h2 class="text-4xl font-bold text-center">Admin Dashboard</h2>
+    
+    <!-- Count Table Section -->
+    <div class="my-5">
+        <h2 class="text-2xl font-bold">Overview</h2>
+        <table class="w-full border-collapse border border-gray-300">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="border border-gray-300 px-4 py-2">Category</th>
+                    <th class="border border-gray-300 px-4 py-2">Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="border border-gray-300 px-4 py-2 text-center">Total Events</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ event_count }}</td>
+                </tr>
+                <tr>
+                    <td class="border border-gray-300 px-4 py-2 text-center">Total Venues</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ venue_count }}</td>
+                </tr>
+                <tr>
+                    <td class="border border-gray-300 px-4 py-2 text-center">Total Users</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ user_count }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Venue List Template (venue_list.html) -->
+    <div class="my-5">
+        <h2 class="text-2xl font-bold">Venues and Associated Events</h2>
+        <table class="table-auto w-full border-collapse border border-gray-300">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="border border-gray-300 px-4 py-2">Venue Name</th>
+                    <th class="border border-gray-300 px-4 py-2">View Events</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for venue in venue_list %}
+                    <tr>
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ venue }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">
+                            <a href="{% url 'events-by-venue' venue.id %}" class="text-blue-500 hover:underline">View Events</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+    </div>
+
+    <div class="">
+        <!-- Event Approval Form -->
+        <h2 class="text-2xl font-bold">Admin Event Approval Page</h2>
+        <form action="{% url 'events-list' %}" method="post">
+            {% csrf_token %}
+            <table class="table-auto w-full border-collapse border border-gray-300">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="border border-gray-300 px-4 py-2">Approve</th>
+                        <th class="border border-gray-300 px-4 py-2">Event Name</th>
+                        <th class="border border-gray-300 px-4 py-2">Date</th>
+                        <th class="border border-gray-300 px-4 py-2">Venue</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in event_list %}
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2 text-center">
+                                <input type="checkbox" name="approve[]" value="{{ event.id }}" {% if event.approved %}checked{% endif %}>
+                            </td>
+                            <td class="border border-gray-300 px-4 py-2">{{ event.name }}</td>
+                            <td class="border border-gray-300 px-4 py-2">{{ event.event_date }}</td>
+                            <td class="border border-gray-300 px-4 py-2">{{ event.venue }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="flex justify-center mt-5 shadow-lg">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                    Submit Approvals
+                </button>
+            </div>
+        </form>
+    </div>
+    
+</section>
+{% endblock %}

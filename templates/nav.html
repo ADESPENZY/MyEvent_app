@@ -1,0 +1,101 @@
+<nav class="bg-teal-500 p-4">
+    <div class="md:w-[80%] mx-auto flex items-center justify-between">
+        <!-- Brand Logo -->
+        <a href="#" class="text-white text-lg font-bold">BrandLogo</a>
+
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden">
+            <button id="mobile-menu-button" class="text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Menu Links for Desktop & Hidden on Mobile -->
+        <div id="desktop-menu" class="hidden md:flex space-x-4 items-center">
+            <a href="{% url 'event-home-page' %}" class="text-white hover:text-teal-200">Home</a>
+            
+            {% if user.is_superuser %}
+                <a href="{% url 'admin-approval' %}" class="text-white hover:text-teal-200">Admin</a>
+            {% endif %}
+
+            <!-- Venue Dropdown -->
+            <div class="relative group">
+                <a href="#" class="text-white hover:text-teal-200">Venue</a>
+                <div class="absolute hidden group-hover:block bg-white p-5 mt-2 space-y-2 rounded shadow-md w-48">
+                    <a href="{% url 'list-venue' %}" class="block text-black hover:text-teal-200">View Venues</a>
+                    <a href="{% url 'add-venue' %}" class="block text-black hover:text-teal-200">Add Venue</a>
+                </div>
+            </div>
+
+            <!-- Events Dropdown -->
+            <div class="relative group">
+                <a href="#" class="text-white hover:text-teal-200">Events</a>
+                <div class="absolute hidden group-hover:block bg-white p-5 mt-2 space-y-2 rounded shadow-md w-48">
+                    <a href="{% url 'events-list' %}" class="block text-black hover:text-teal-200">Event List</a>
+                    <a href="{% url 'add-event' %}" class="block text-black hover:text-teal-200">Add Event</a>
+                    <a href="{% url 'my-events' %}" class="block text-black hover:text-teal-200">My Events</a>
+                </div>
+            </div>
+
+            <!-- Downloads Dropdown -->
+            <div class="relative group">
+                <a href="#" class="text-white hover:text-teal-200">Downloads</a>
+                <div class="absolute hidden group-hover:block bg-white p-5 mt-2 space-y-2 rounded shadow-md w-48">
+                    <a href="{% url 'venue-text' %}" class="block text-black hover:text-teal-200">Text File</a>
+                    <a href="{% url 'venue-csv' %}" class="block text-black hover:text-teal-200">CSV File</a>
+                    <a href="{% url 'venue-pdf' %}" class="block text-black hover:text-teal-200">PDF File</a>
+                </div>
+            </div>
+
+            <!-- Authentication Links -->
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}" class="text-white hover:text-teal-200">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="text-white hover:text-teal-200">Login</a>
+                <a href="{% url 'signup' %}" class="text-white hover:text-teal-200">SignUp</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Mobile Menu for Small Screens -->
+    <div id="mobile-menu" class="hidden md:hidden space-y-4 mt-4 p-4 bg-teal-600 rounded-lg">
+        <a href="{% url 'event-home-page' %}" class="block text-white">Home</a>
+        
+        {% if user.is_superuser %}
+            <a href="{% url 'admin-approval' %}" class="block text-white">Admin</a>
+        {% endif %}
+
+        <!-- Venue Links -->
+        <a href="{% url 'list-venue' %}" class="block text-white">View Venues</a>
+        <a href="{% url 'add-venue' %}" class="block text-white">Add Venue</a>
+
+        <!-- Event Links -->
+        <a href="{% url 'events-list' %}" class="block text-white">Event List</a>
+        <a href="{% url 'add-event' %}" class="block text-white">Add Event</a>
+        <a href="{% url 'my-events' %}" class="block text-white">My Events</a>
+
+        <!-- Download Links -->
+        <a href="{% url 'venue-text' %}" class="block text-white">Text File</a>
+        <a href="{% url 'venue-csv' %}" class="block text-white">CSV File</a>
+        <a href="{% url 'venue-pdf' %}" class="block text-white">PDF File</a>
+
+        <!-- Authentication Links -->
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="block text-white">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}" class="block text-white">Login</a>
+            <a href="{% url 'signup' %}" class="block text-white">SignUp</a>
+        {% endif %}
+    </div>
+</nav>
+
+<script>
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+</script>

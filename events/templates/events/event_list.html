@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="md:w-[80%] mx-auto space-y-10">
+    <h1 class="font-bold text-3xl mb-8 text-gray-800 text-center">Upcoming Events</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for event in event_list %}
+        
+        {% if event.approved %}
+            <div class="border border-gray-200 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <h3 class="font-semibold text-2xl text-gray-800 mb-4">{{ event.name }}</h3>
+                <ul class="space-y-1 text-gray-600 text-sm">
+                    <li><strong>Date:</strong> {{ event.event_date }}</li>
+                    <li><strong>Days Till Event:</strong> {{ event.Days_till }}</li>
+                    <li><strong>Venue:</strong> {{ event.venue }}</li>
+                    <li><strong>Venue Website:</strong> 
+                        <a href="{{ event.venue.web }}" target="_blank" class="text-blue-500 hover:underline">
+                            {{ event.venue.web }}
+                        </a>
+                    </li>
+                    <li><strong>Venue Address:</strong> {{ event.venue.address }}</li>
+                    <li><strong>Manager:</strong> {{ event.manager }}</li>
+                    <li><strong>Description:</strong> {{ event.description|truncatewords:25 }}</li>
+                </ul>
+
+                <div class="flex justify-between items-center mt-6">
+                    <!-- Reserve Spot Button -->
+                    <a href="{% url 'event-registration' event.id %}" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-300">
+                        Reserve A Spot
+                    </a>
+                
+                    {% if user.is_authenticated %}
+                        {% if user == event.manager or user.is_superuser %}
+                            
+                            <!-- Update Button -->
+                            <a href="{% url 'update-event' event.id %}" class="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 focus:outline-none transition-colors duration-200">
+                                Update
+                            </a>    
+                        
+                             <!-- Delete Button Form -->
+                             <form action="{% url 'delete-event' event.id %}" method="post" onsubmit="return confirm('Are you sure you want to delete this event?');">
+                                {% csrf_token %}
+                                <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none transition-colors duration-200">
+                                    Delete
+                                </button>
+                            </form>                   
+                        
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+            </div>
+        {% endif %}
+        
+        {% empty %}
+            <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-8">
+                <p class="text-gray-500 text-lg">No events available at the moment. Check back later!</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

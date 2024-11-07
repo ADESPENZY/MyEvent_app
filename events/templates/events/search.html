@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<section class="w-[80%] mx-auto flex flex-col justify-center items-center mt-10 space-y-8 px-6">
+    {% if query %}
+        <h2 class="text-3xl font-bold text-gray-800 mb-4">Search Results for "{{ query }}"</h2>
+
+        <!-- Display Venue Results -->
+        <div class="w-full max-w-2xl bg-white rounded-lg shadow-lg p-6 mb-6">
+            <h3 class="text-xl font-semibold text-teal-600 mb-3">Venues</h3>
+            <div class="space-y-2">
+                {% if venues %}
+                    {% for venue in venues %}
+                        <a href="{% url 'show-venue' venue.id %}" class="text-lg text-gray-700 hover:text-teal-600 hover:underline">
+                            <p>{{ venue.name }}</p>
+                        </a>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-gray-500 italic">No venues found matching "{{ query }}"</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Display Event Results -->
+        <div class="w-full max-w-2xl bg-white rounded-lg shadow-lg p-6">
+            <h3 class="text-xl font-semibold text-teal-600 mb-3">Events</h3>
+            <div class="space-y-2">
+                {% if events %}
+                    {% for event in events %}
+                        <a href="{% url 'events-list' %}" class="text-lg text-gray-700 hover:text-teal-600 hover:underline">
+                            <p>{{ event.name }}</p>
+                        </a>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-gray-500 italic">No events found matching "{{ query }}"</p>
+                {% endif %}
+            </div>
+        </div>
+        
+    {% else %}
+        <h2 class="text-2xl font-semibold text-gray-800">Please enter a search term.</h2>
+    {% endif %}
+</section>
+{% endblock %}
+
