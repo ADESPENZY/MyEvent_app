@@ -36,6 +36,7 @@ python-dotenv==1.0.1
 python-slugify==8.0.4
 pytz==2024.2
 PyYAML==6.0.2
+reportlab==4.0.4  # add reportlab here
 requests==2.32.3
 rich==13.9.1
 six==1.16.0
