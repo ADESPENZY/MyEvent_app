@@ -29,7 +29,7 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
     current_year = now.year
 
     # query event model for dates
-    event_list = Event.objects.filter(event_date__year = year, event_date__month = 12)
+    event_list = Event.objects.filter(event_date__year = year, event_date__month = 11)
 
     # get current time 
     time = now.strftime('%I:%M %p')
