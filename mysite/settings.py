@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'django_browser_reload',
     'members',
-    'storages',
 ]
 
 TAILWIND_APP_NAME = 'theme'
