@@ -58,10 +58,17 @@ class EventFormAdmin(forms.ModelForm):
         label="Attendees",
         required=False
     )
+    max_attendees = forms.IntegerField(
+        label="Maximum Attendees",
+        widget=forms.NumberInput(attrs={
+            'class': 'border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-forest-green'
+        }),
+        required=False
+    )
 
     class Meta:
         model = Event
-        fields = ['name', 'event_date', 'venue', 'manager', 'description', 'attendees']
+        fields = ['name', 'event_date', 'venue', 'manager', 'description', 'attendees', 'max_attendees']
 
 # user event form
 class EventForm(forms.ModelForm):
@@ -85,10 +92,17 @@ class EventForm(forms.ModelForm):
         label="Attendees",
         required=False
     )
+    max_attendees = forms.IntegerField(
+        label="Maximum Attendees",
+        widget=forms.NumberInput(attrs={
+            'class': 'border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-forest-green'
+        }),
+        required=False
+    )
 
     class Meta:
         model = Event
-        fields = ['name', 'event_date', 'venue', 'description', 'attendees']
+        fields = ['name', 'event_date', 'venue', 'description', 'attendees', 'max_attendees']
 
 from django import forms
 from .models import MyClubUser

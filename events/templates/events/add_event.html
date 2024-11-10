@@ -7,7 +7,7 @@
     {% if user.is_authenticated %}
         
         
-    <h2 class="text-2xl font-bold mb-6 text-gray-800 text-center">Add Venue</h2>
+    <h2 class="text-2xl font-bold mb-6 text-gray-800 text-center">Add Event</h2>
     
     {% if submitted %}
         <p>Your Venue Was Submitted Successfully!!!</p>
@@ -49,18 +49,11 @@
             <label for="id_description" class="text-lg font-semibold">Description :</label>
             {{ form.description }}
         </div>
-    
-        <!-- Attendees (Checkbox Group) -->
+
+        <!-- Max Attendees -->
         <div class="flex flex-col space-y-2 mt-3">
-            <label class="text-lg font-semibold">Attendees :</label>
-            <div class="border border-gray-300 p-2 rounded-md space-y-1">
-                {% for attendee in form.attendees %}
-                    <div class="flex items-center">
-                        {{ attendee.tag }} <!-- Renders the checkbox for each attendee -->
-                        <label class="ml-2">{{ attendee.choice_label }}</label> <!-- Renders the attendee name -->
-                    </div>
-                {% endfor %}
-            </div>
+            <label for="id_max_attendees" class="text-lg font-semibold">Max Attendees :</label>
+            {{ form.max_attendees }}
         </div>
     
        <!-- Submit Button -->

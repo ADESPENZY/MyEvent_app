@@ -47,6 +47,7 @@ class Event(models.Model):
     description = models.TextField(blank=True)
     attendees = models.ManyToManyField(MyClubUser, blank=True)
     approved = models.BooleanField('Approved', default=False)
+    max_attendees = models.PositiveIntegerField(default=0)  # New field
 
     def __str__(self):
         return self.name
@@ -57,6 +58,14 @@ class Event(models.Model):
         days_till = self.event_date.date() - today
         days_till_stripped = str(days_till).split(",",1)[0]
         return days_till_stripped
+    
+    @property
+    def attendees_count(self):
+        return self.attendees.count()
+    
+    @property
+    def spots_left(self):
+        return self.max_attendees - self.attendees_count
 
     # @property
     # def is_past(self):
