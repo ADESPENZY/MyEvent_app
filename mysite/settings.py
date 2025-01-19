@@ -92,23 +92,24 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
+#     'default': dj_database_url.config(
+#         default=os.getenv('DATABASE_URL')  # This will get the DATABASE_URL environment variable
+#     )
 # }
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL')  # This will get the DATABASE_URL environment variable
-    )
-}
-
-# Add SSL mode option for secure connection
-DATABASES['default']['OPTIONS'] = {
-    'sslmode': 'require',
-}
+# # Add SSL mode option for secure connection
+# DATABASES['default']['OPTIONS'] = {
+#     'sslmode': 'require',
+# }
 
 
 
